@@ -7,6 +7,7 @@
 * [Pinout & Configuration](#pinout-and-configuration)
 * [Design and Generate Filter Coefficients](#design-and-generate-filter-coefficients)
 * [Code Configuration](#code-configuration)
+* [Demo](#Demo)
 * [Reference](#Reference)
 
 ## Introduction
@@ -83,6 +84,27 @@ from | to | gain | ripple/att.
 
 
 ## Code Configuration
+First, we need to import the FatFS SD card function ([fatfs_sd.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/Core/Src/fatfs_sd.c) and [fatfs_sd.h](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/Core/Inc/fatfs_sd.h)) to our project and include it in the header of [user_diskio.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/FATFS/Target/user_diskio.c) and [main.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/Core/Src/main.c). In the [user_diskio.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/FATFS/Target/user_diskio.c) Private Functions, we return all the data to the controller through SPI1 using the function we just added.
+
+![image](https://drive.google.com/uc?export=view&id=1WeuHrJ9EqGdiCIoXrSa3NyLPUgRxS5fb)
+
+In the [main.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/Core/Src/main.c) file, we can check our SD card connection status using the **f_mount** function and print the status to the serial monitor using the **send_uart** function. After that, we enter our main loop and start to read-write data to our SD card and monitor through the serial monitor. 
+![image](https://drive.google.com/uc?export=view&id=112BfY8nDqbCqb6weL3dMoYHH_Q04gTa3)
+
+After include and set up the path of **CMSIS DSP** library ([Tutorial](https://www.youtube.com/watch?v=MUZj4YwKVac)), we will use these two function to implement FIR in our project which are **arm_fir_f32** and **arm_fir_init_f32**. The **arm_fir_init_f32** is an associated initialization function for each data type. The initialization function has two main function. It is used to set the values of the internal structure fields and initialize the values in the state buffer. If the initialization function is used, then the instance structure cannot be placed into a constant data section. There is a total of five parameters are needed for this function. First, **S** is points to an instance of the floating-point FIR filter structure. **numTaps** is number of filter coefficients in the filter. **firCoeffs32** points to the filter coefficients buffer which are the values of the impulse response generated from the online website. **firStateF32** points to the state buffer, **blockSize** is the number of samples processed per call.
+<p align="center">
+  <img width="460" width="500" src="https://drive.google.com/uc?export=view&id=1PT6Tzzc9kTFGCWXDy2PPrordUn2x0eRZ">
+  <img width="460" width="500" src="https://drive.google.com/uc?export=view&id=1r95EVXRNVaeYlrUdxwGbjHZHQ6BsN2WT">
+</p>
+
+This figure below shows the use of FIR function in our project [main.c](https://github.com/mkel1123project/Audio-Filtering-on-STM32-Using-CMSIS-DSP/blob/main/Core/Src/main.c) file. All the variable and parameter are first declared. Then, the fir function is called in the main function and pass all the parameter and variables accordingly for the FIR filter algorithm computation.
+
+![image](https://drive.google.com/uc?export=view&id=1vNIKY9FaSpKQk4HOTZs3POr_hmLzwz4v)
+
+## Demo
+![image](https://drive.google.com/uc?export=view&id=1pgWNbIdR0qd9oOSIJLP_NhTVURY4pk1n)
+![image](https://drive.google.com/uc?export=view&id=1V5Ugwxx4swL1DG3PDiJEJa-NEiepUN8_)
+[![video](https://drive.google.com/uc?export=view&id=1LkcOgwU_gme9NritiUeSz7BUAlIBikQl)](https://www.youtube.com/watch?v=SxUf0OrASGo)
 
 
 
