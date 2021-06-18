@@ -22,8 +22,8 @@ Cut-off Frequency | 2000 Hz
 Filter Design Method | Window Hamming Method
 Filter Order| ?
 Fs  | 48000Hz
-Fpass | ?
-Fstop | ?
+Fpass | 0 Hz - 2000 Hz
+Fstop | 5000 Hz - 24000 Hz
 TEST_LENGTH_SAMPLES | 19084 (number of input data)
 BLOCK_SIZE | 1
 NUM_TAPS | 17
