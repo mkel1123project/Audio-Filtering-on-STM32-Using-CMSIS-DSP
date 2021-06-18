@@ -4,7 +4,10 @@
 	* [Filter Specification](#filter-specification)
 	* [Hardware](#Hardware "Goto Hardware")
 	* [Software](#Software)
-* [PINOUT & CONFIGURATION](#pinout-and-configuration)
+* [Pinout & Configuration](#pinout-and-configuration)
+* [Design and Generate Filter Coefficients](#design-and-generate-filter-coefficients)
+* [Code Configuration](#code-configuration)
+* [Reference](#Reference)
 
 ## Introduction
 <p align="center">
@@ -19,8 +22,6 @@
 Declaration | Value
 ------------ | -------------
 Cut-off Frequency | 2000 Hz
-Filter Design Method | Window Hamming Method
-Filter Order| ?
 Fs  | 48000Hz
 Fpass | 0 Hz - 2000 Hz
 Fstop | 5000 Hz - 24000 Hz
@@ -39,7 +40,7 @@ NUM_TAPS | 17
 * [Putty](https://www.putty.org/)
 * [Audacity](https://www.audacityteam.org/download/)
 
-## PINOUT and CONFIGURATION
+## Pinout and Configuration
 In this project, we store the input and output of the FIR filter in an SD card. Therefore, we need to set the interface between the SD card module and STM32.
 
 
@@ -68,6 +69,22 @@ CS | PB6
 
 5. In the **system mode** setting, the debug state changed to **serial wire** mode. For the **RCC** setting, we used a **crystal/ceramic resonator** to generate our clock. While for the **clock configuration**, we set it to **maximum frequency,180 MHz**.
 ![image](https://drive.google.com/uc?export=view&id=1asDazAoJb80-9pazVPPvquZPmpzHkZRH)
+
+
+## Design and Generate Filter Coefficients
+Design the filter using this [website](http://t-filter.engineerjs.com/). In this project, we set the spec to:
+
+from | to | gain | ripple/att.
+------------ | ------------- | ------------- | -------------
+0 Hz | 2000 Hz | 1 | 5db
+5000 Hz | 24000 Hz | 0 | -30db
+
+![image](https://drive.google.com/uc?export=view&id=1n-QvVK68c4sYVBDQeRxgq3H2zg7y4Nu5)
+
+
+## Code Configuration
+
+
 
 ## Reference
 1. <https://os.mbed.com/platforms/ST-Nucleo-F446RE/>
