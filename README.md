@@ -35,8 +35,9 @@ NUM_TAPS | 17
 ### Software
 * [STM32 Cube IDE](https://www.st.com/en/development-tools/stm32cubeide.html)
 * [CMSIS DSP Library](https://www.keil.com/pack/doc/CMSIS/DSP/html/index.html)
-* [Putty](https://www.putty.org/)
 * [MATLAB / Online Filter Design Tool](http://t-filter.engineerjs.com/)
+* [Putty](https://www.putty.org/)
+* [Audacity](https://www.audacityteam.org/download/)
 
 ## PINOUT and CONFIGURATION
 In this project, we store the input and output of the FIR filter in an SD card. Therefore, we need to set the interface between the SD card module and STM32.
